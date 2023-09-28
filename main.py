@@ -4,7 +4,7 @@ def main():
     read = read_file("operations.json")
     filtered = filter_operations(read)
     last = sort_by_date(filtered)
-    # print(last)
+    #print(last)
 
 
 
