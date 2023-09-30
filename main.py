@@ -1,10 +1,19 @@
-from src.utils import read_file, filter_operations, sort_by_date, mask_card, mask_account
+
+from src.utils import *
+
 
 def main():
-    read = read_file("operations.json")
-    filtered = filter_operations(read)
-    last = sort_by_date(filtered)
-    #print(last)
+    # Чтение данных из файла
+    operations = read_file('operations.json')
+
+    # Фильтрация операций по статусу "Выполнено"
+    executed_operations = filter_operations(operations)
+
+    # Сортировка операций по дате
+    sorted_operations = sort_by_date(executed_operations)
+
+
+
 
 
 
