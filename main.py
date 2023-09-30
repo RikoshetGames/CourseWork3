@@ -12,6 +12,8 @@ def main():
     # Сортировка операций по дате
     sorted_operations = sort_by_date(executed_operations)
 
+    # Вывод отсортированных операций в заданном формате
+    show_ops(sorted_operations)
 
 
 
