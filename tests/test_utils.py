@@ -1,23 +1,21 @@
-from src.utils import *
 
-def test_read_file():
-    pass
+from src.utils import *
 
 
 def test_filter_operations():
     operations = [
-        {'id': 1, 'state': 'EXECUTED', 'amount': 100},
-        {'id': 2, 'state': 'PENDING', 'amount': 200},
-        {'id': 3, 'state': 'EXECUTED', 'amount': 150},
-        {'id': 4, 'amount': 50},
-        {'id': 5, 'state': 'CANCELLED', 'amount': 75},
-        {'id': 6, 'state': 'EXECUTED', 'amount': 300},
+        {"id": 1, "state": "EXECUTED"},
+        {"id": 2, "state": "CANCELLED"},
+        {"id": 3, "state": "EXECUTED"},
+        {"id": 4},
+        {"id": 5, "state": "CANCELLED"},
+        {"id": 6, "state": "EXECUTED"},
     ]
     executed_operations = filter_operations(operations)
     assert len(executed_operations) == 3
-    assert executed_operations[0]['id'] == 1
-    assert executed_operations[1]['id'] == 3
-    assert executed_operations[2]['id'] == 6
+    assert executed_operations[0]["id"] == 1
+    assert executed_operations[1]["id"] == 3
+    assert executed_operations[2]["id"] == 6
 
 def test_sort_by_date():
     operations = [
@@ -36,20 +34,29 @@ def test_sort_by_date():
 
 
 def test_mask_card():
-    pass
+    assert mask_card("1234567890123456") == "1234 56** **** 3456"
+    assert mask_card("1111222233334444") == "1111 22** **** 4444"
+    assert mask_card("9876543210987654") == "9876 54** **** 7654"
 
 
 def test_mask_account():
-    pass
+    assert mask_account("12345678901234567890") == "**7890"
+    assert mask_account("11112222333344445555") == "**5555"
+    assert mask_account("98765432109876543210") == "**3210"
 
 
 def test_extract_value():
-    pass
+    json_list = [
+        {"id": 1, "from": "MasterCard 1234567890123456"},
+        {"id": 2, "to": "Счет 12345678901234567890"},
+        {"id": 3}
+    ]
+    assert extract_value(json_list, "from") == "MasterCard 1234 56** **** 3456"
+    assert extract_value(json_list, "to") == "Счет **7890"
+    assert extract_value(json_list, None) == None
 
 
 def test_format_date():
-    pass
-
-
-def test_show_ops():
-    pass
+    assert format_date('2022-09-30T12:34:56.789012') == '30.09.2022'
+    assert format_date('2023-01-01T00:00:00.000000') == '01.01.2023'
+    assert format_date('2021-12-31T23:59:59.999999') == '31.12.2021'
