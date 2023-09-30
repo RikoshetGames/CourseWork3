@@ -1,8 +1,5 @@
 from src.utils import *
 
-def test_read_file():
-    pass
-
 
 def test_filter_operations():
     operations = [
@@ -50,11 +47,11 @@ def test_mask_account():
 def test_extract_value():
     json_list = [
         {"id": 1, "from": "MasterCard 1234567890123456"},
-        {"id": 2, "to": "Visa Classic 1111222233334444"},
+        {"id": 2, "to": "Счет 12345678901234567890"},
         {"id": 3}
     ]
     assert extract_value(json_list, "from") == "MasterCard 1234 56** **** 3456"
-    assert extract_value(json_list, "to") == "Visa Classic 1111 22** **** 4444"
+    assert extract_value(json_list, "to") == "Счет **7890"
     assert extract_value(json_list, None) == None
 
 
@@ -62,7 +59,3 @@ def test_format_date():
     assert format_date('2022-09-30T12:34:56.789012') == '30.09.2022'
     assert format_date('2023-01-01T00:00:00.000000') == '01.01.2023'
     assert format_date('2021-12-31T23:59:59.999999') == '31.12.2021'
-
-
-def test_show_ops():
-    pass

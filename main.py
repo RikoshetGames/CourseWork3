@@ -16,8 +16,5 @@ def main():
     show_ops(sorted_operations)
 
 
-
-
-
 if __name__ == '__main__':
     main()
