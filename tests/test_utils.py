@@ -49,11 +49,13 @@ def test_extract_value():
     json_list = [
         {"id": 1, "from": "MasterCard 1234567890123456"},
         {"id": 2, "to": "Счет 12345678901234567890"},
-        {"id": 3}
+        {"id": 3},
+        {"id": 4, "too": "Visa Gold 1234567890123456"}
     ]
     assert extract_value(json_list, "from") == "MasterCard 1234 56** **** 3456"
     assert extract_value(json_list, "to") == "Счет **7890"
     assert extract_value(json_list, None) == None
+    assert extract_value(json_list, "too") == "Visa Gold 1234 56** **** 3456"
 
 
 def test_format_date():
